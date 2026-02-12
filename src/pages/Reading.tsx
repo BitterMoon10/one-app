@@ -15,7 +15,7 @@ interface BookNote {
 const books: BookNote[] = [
   {
     id: '1',
-    cover: './book-1.jpg',
+    cover: '/one-app/book-1.jpg',
     title: '沉默的回声',
     author: '艾莉诺·万斯',
     quote: '时间不是治愈一切的良药，有些伤口会随着岁月变得更加深刻，只是我们学会了与疼痛共处。',
@@ -24,7 +24,7 @@ const books: BookNote[] = [
   },
   {
     id: '2',
-    cover: './book-2.jpg',
+    cover: '/one-app/book-2.jpg',
     title: '山巅之上',
     author: '陈默',
     quote: '站在高处的人，看到的不是风景，而是自己的渺小。',
@@ -33,7 +33,7 @@ const books: BookNote[] = [
   },
   {
     id: '3',
-    cover: './book-3.jpg',
+    cover: '/one-app/book-3.jpg',
     title: '海洋的拥抱',
     author: '林汐',
     quote: '海浪一次次冲刷着沙滩，就像生活中那些反复出现的困境，看似徒劳，却在无形中塑造着海岸线的轮廓。',
