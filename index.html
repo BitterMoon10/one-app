@@ -8,17 +8,16 @@
       // GitHub Pages SPA redirect handling
       (function() {
         const params = new URLSearchParams(window.location.search);
-        const redirect = params.get('p');
+        const redirect = params.get('redirect');
         if (redirect) {
-          const search = params.get('q');
-          const url = '/' + redirect.replace(/~and~/g, '&') + 
-                     (search ? '?' + search.replace(/~and~/g, '&') : '') + 
-                     window.location.hash;
+          // 解码并重定向到正确路径
+          const decoded = decodeURIComponent(redirect);
+          const url = '/one-app/' + decoded;
           window.history.replaceState(null, null, url);
         }
       })();
     </script>
-    <script type="module" crossorigin src="/one-app/assets/index-D-7Y9lPS.js"></script>
+    <script type="module" crossorigin src="/one-app/assets/index-CSa3x5NG.js"></script>
     <link rel="stylesheet" crossorigin href="/one-app/assets/index-BTtxZBtP.css">
   </head>
   <body>
