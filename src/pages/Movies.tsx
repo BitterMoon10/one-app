@@ -16,7 +16,7 @@ interface MovieReview {
 const movies: MovieReview[] = [
   {
     id: '1',
-    screenshot: '/movie-1.jpg',
+    screenshot: './movie-1.jpg',
     title: '图书馆的秘密',
     director: '克里斯托弗·诺兰',
     year: '2023',
@@ -26,7 +26,7 @@ const movies: MovieReview[] = [
   },
   {
     id: '2',
-    screenshot: '/movie-2.jpg',
+    screenshot: './movie-2.jpg',
     title: '山巅之城',
     director: '丹尼斯·维伦纽瓦',
     year: '2024',
