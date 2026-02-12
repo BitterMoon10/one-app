@@ -2,16 +2,16 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>个人主页</title>
-    <script type="text/javascript">
-      // 单页应用 GitHub Pages 重定向
-      var pathSegmentsToKeep = 1; // 保留 /one-app
-      var l = window.location;
+    <title>Redirecting...</title>
+    <script>
+      // GitHub Pages SPA redirect
+      const segment = 1; // /one-app
+      const l = window.location;
       l.replace(
         l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
-        l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
-        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+        l.pathname.split('/').slice(0, 1 + segment).join('/') + '/?p=' +
+        l.pathname.slice(1).split('/').slice(segment).join('/').replace(/&/g, '~and~') +
+        (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
         l.hash
       );
     </script>
