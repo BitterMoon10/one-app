@@ -56,9 +56,9 @@ const Navigation = () => {
                   to={item.path}
                   className={`text-sm font-medium underline-animation transition-colors ${
                     isHomePage && !scrolled
-                      ? 'text-white hover:text-white'
-                      : 'text-gray-800 hover:text-gray-950'
-                  } ${location.pathname === item.path ? 'opacity-100' : 'opacity-90 hover:opacity-100'}`}
+                      ? 'text-white'
+                      : 'text-gray-900'
+                  } ${location.pathname === item.path ? 'font-semibold' : ''}`}
                 >
                   {item.label}
                 </Link>
