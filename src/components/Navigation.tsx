@@ -41,9 +41,7 @@ const Navigation = () => {
             {/* Logo */}
             <Link
               to="/"
-              className={`text-lg font-bold transition-colors ${
-                isHomePage && !scrolled ? 'text-white' : 'text-gray-950'
-              }`}
+              className={`text-lg font-bold transition-colors text-white`}
             >
               .- ...
             </Link>
@@ -54,11 +52,7 @@ const Navigation = () => {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`text-sm font-bold underline-animation transition-colors ${
-                    isHomePage && !scrolled
-                      ? 'text-white'
-                      : 'text-gray-950'
-                  } ${location.pathname === item.path ? 'text-black' : ''}`}
+                  className={`text-sm font-bold underline-animation transition-colors text-white`}
                 >
                   {item.label}
                 </Link>
