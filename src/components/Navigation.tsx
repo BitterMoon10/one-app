@@ -33,7 +33,7 @@ const Navigation = () => {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isHomePage && !scrolled 
             ? 'bg-transparent' 
-            : 'glass shadow-sm'
+            : 'glass-light shadow-sm'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -42,7 +42,7 @@ const Navigation = () => {
             <Link
               to="/"
               className={`text-lg font-medium transition-colors ${
-                isHomePage && !scrolled ? 'text-white' : 'text-gray-900'
+                isHomePage && !scrolled ? 'text-white' : 'text-gray-800'
               }`}
             >
               .- ...
@@ -57,8 +57,8 @@ const Navigation = () => {
                   className={`text-sm font-medium underline-animation transition-colors ${
                     isHomePage && !scrolled
                       ? 'text-white'
-                      : 'text-gray-900'
-                  } ${location.pathname === item.path ? 'font-semibold' : ''}`}
+                      : 'text-gray-800'
+                  } ${location.pathname === item.path ? 'font-bold text-gray-900' : ''}`}
                 >
                   {item.label}
                 </Link>
