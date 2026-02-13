@@ -35,7 +35,7 @@ const About = () => {
                   }}
                 >
                   <img
-                    src="/one-app/avatar.jpg"
+                    src="/avatar.jpg"
                     alt="个人头像"
                     className={`w-full aspect-[3/4] object-cover transition-all duration-1200 ${
                       loaded ? 'scale-100 grayscale-0' : 'scale-110 grayscale'

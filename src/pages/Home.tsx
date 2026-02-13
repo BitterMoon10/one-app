@@ -88,7 +88,7 @@ const Home = () => {
         style={{ transitionTimingFunction: 'var(--ease-out-expo)' }}
       >
         <img
-          src="/one-app/hero-bg.jpg"
+          src="/hero-bg.jpg"
           alt="Serene landscape"
           className="w-full h-full object-cover"
         />
@@ -148,7 +148,7 @@ const Home = () => {
                       <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-white/5 rounded-full blur-2xl" />
                       
                       <div className="relative overflow-hidden rounded-2xl">
-                        <img src="/one-app/avatar.jpg" alt="个人头像" className="w-full aspect-[3/4] object-cover" />
+                        <img src="/avatar.jpg" alt="个人头像" className="w-full aspect-[3/4] object-cover" />
                       </div>
 
                       <div className="absolute -bottom-6 -right-6 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 p-4">

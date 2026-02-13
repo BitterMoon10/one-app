@@ -5,15 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>个人主页</title>
     <script>
-      // GitHub Pages SPA redirect handling
+      // SPA redirect handling for custom domain
       (function() {
         const params = new URLSearchParams(window.location.search);
         const redirect = params.get('redirect');
         if (redirect) {
-          // 解码并重定向到正确路径
           const decoded = decodeURIComponent(redirect);
-          const url = '/one-app/' + decoded;
-          window.history.replaceState(null, null, url);
+          window.history.replaceState(null, null, decoded);
         }
       })();
     </script>

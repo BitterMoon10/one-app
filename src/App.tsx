@@ -46,7 +46,7 @@ function App() {
   };
 
   return (
-    <Router basename="/one-app">
+    <Router>
       <div className="min-h-screen relative">
         <Navigation />
         <Routes>
