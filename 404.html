@@ -4,18 +4,11 @@
     <meta charset="utf-8">
     <title>Redirecting...</title>
     <script>
-      // GitHub Pages SPA redirect - 正确处理 /one-app/ 前缀
+      // SPA redirect for custom domain
       const l = window.location;
       const path = l.pathname;
-      
-      // 提取 /one-app/ 之后的路径
-      const match = path.match(/^\/one-app\/(.*)$/);
-      const routePath = match ? match[1] : '';
-      
-      // 重写到根路径并保留路由信息
       l.replace(
-        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        '/one-app/?redirect=' + encodeURIComponent(routePath + l.search + l.hash)
+        l.protocol + '//' + l.hostname + '/?redirect=' + encodeURIComponent(path + l.search + l.hash)
       );
     </script>
   </head>
