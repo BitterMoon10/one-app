@@ -136,43 +136,64 @@ const Photography = () => {
                   {/* Left: Photos - 按原始尺寸展示 */}
                   <div className="lg:col-span-7 order-2 lg:order-1">
                     {category.id === '1' ? (
-                      // 川西之旅 - 紧密错落布局
-                      <div className="relative bg-white/5 rounded-2xl p-4">
-                        <div className="flex flex-wrap items-start justify-center gap-2">
-                          {category.photos.map((photo, photoIndex) => {
-                            // 错落的大小和位置
-                            const styles = [
-                              { width: '55%', marginTop: '0', marginLeft: '0' },
-                              { width: '40%', marginTop: '8%', marginLeft: '-5%' },
-                              { width: '45%', marginTop: '-3%', marginLeft: '2%' },
-                              { width: '50%', marginTop: '5%', marginLeft: '-8%' },
-                              { width: '42%', marginTop: '-2%', marginLeft: '3%' },
-                            ];
-                            const style = styles[photoIndex % styles.length];
-                            
-                            return (
-                              <div
-                                key={photo.id}
-                                className="group relative overflow-hidden rounded-lg cursor-pointer transition-all duration-500 hover:scale-[1.03] hover:z-10 shadow-lg"
-                                style={{
-                                  width: style.width,
-                                  marginTop: style.marginTop,
-                                  marginLeft: style.marginLeft,
-                                }}
-                                onClick={() => openLightbox(categoryIndex, photoIndex)}
-                              >
-                                <img
-                                  src={photo.image}
-                                  alt={photo.title}
-                                  className="w-full h-auto object-contain"
-                                />
-                                {/* Hover Overlay */}
-                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
-                                  <span className="text-white text-sm font-medium">{photo.title}</span>
-                                </div>
+                      // 川西之旅 - 规整布局：左2横图 + 右1竖图
+                      <div className="grid grid-cols-2 gap-3">
+                        {/* 左侧：两张横向图片上下排列 */}
+                        <div className="flex flex-col gap-3">
+                          {category.photos.slice(0, 2).map((photo, photoIndex) => (
+                            <div
+                              key={photo.id}
+                              className="group relative overflow-hidden rounded-lg cursor-pointer flex-1"
+                              onClick={() => openLightbox(categoryIndex, photoIndex)}
+                            >
+                              <img
+                                src={photo.image}
+                                alt={photo.title}
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                              />
+                              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                                <span className="text-white text-sm font-medium">{photo.title}</span>
                               </div>
-                            );
-                          })}
+                            </div>
+                          ))}
+                        </div>
+                        {/* 右侧：一张竖向图片占满高度 */}
+                        <div className="row-span-1">
+                          {category.photos[2] && (
+                            <div
+                              key={category.photos[2].id}
+                              className="group relative overflow-hidden rounded-lg cursor-pointer h-full"
+                              onClick={() => openLightbox(categoryIndex, 2)}
+                            >
+                              <img
+                                src={category.photos[2].image}
+                                alt={category.photos[2].title}
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                              />
+                              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                                <span className="text-white text-sm font-medium">{category.photos[2].title}</span>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                        {/* 底部：剩余两张横向图片并排 */}
+                        <div className="col-span-2 grid grid-cols-2 gap-3">
+                          {category.photos.slice(3).map((photo, photoIndex) => (
+                            <div
+                              key={photo.id}
+                              className="group relative overflow-hidden rounded-lg cursor-pointer aspect-[16/9]"
+                              onClick={() => openLightbox(categoryIndex, photoIndex + 3)}
+                            >
+                              <img
+                                src={photo.image}
+                                alt={photo.title}
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                              />
+                              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                                <span className="text-white text-sm font-medium">{photo.title}</span>
+                              </div>
+                            </div>
+                          ))}
                         </div>
                       </div>
                     ) : (
