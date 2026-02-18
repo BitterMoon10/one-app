@@ -26,8 +26,8 @@ const categories: Category[] = [
     photos: [
       { id: 'p1', image: '/稻城亚丁.jpeg', title: '稻城亚丁', size: 'large' },
       { id: 'p2', image: '/雪山流水.jpeg', title: '雪山流水', size: 'medium' },
-      { id: 'p3', image: '/西部公路.jpeg', title: '西部公路', size: 'medium' },
-      { id: 'p4', image: '/雪顶入云.jpeg', title: '雪顶入云', size: 'large' },
+      { id: 'p3', image: '/雪顶入云.jpeg', title: '雪顶入云', size: 'large' },  // 竖图放第3位
+      { id: 'p4', image: '/西部公路.jpeg', title: '西部公路', size: 'medium' },
       { id: 'p5', image: '/佛塔信仰.jpeg', title: '佛塔信仰', size: 'large' },
     ],
   },
