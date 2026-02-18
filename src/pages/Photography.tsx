@@ -20,16 +20,15 @@ interface Category {
 const categories: Category[] = [
   {
     id: '1',
-    name: '旷野遐想',
+    name: '川西之旅',
     nameEn: 'Wilderness Dreams',
     description: '远离城市喧嚣，深入自然腹地。在广袤的原野与寂静的山川之间，寻找内心的宁静与自然的对话，记录大自然最原始、最纯净的瞬间。',
     photos: [
-      { id: 'p1', image: '/photo-landscape.jpg', title: '雾中孤舟', size: 'large' },
-      { id: 'p2', image: '/photo-mountain.jpg', title: '山湖倒影', size: 'medium' },
-      { id: 'p3', image: '/photo-1.jpg', title: '金色麦田', size: 'small' },
-      { id: 'p4', image: '/photo-2.jpg', title: '雪后森林', size: 'medium' },
-      { id: 'p5', image: '/photo-3.jpg', title: '海边灯塔', size: 'small' },
-      { id: 'p6', image: '/photo-7.jpg', title: '冰岛极光', size: 'large' },
+      { id: 'p1', image: '/稻城亚丁.jpeg', title: '稻城亚丁', size: 'large' },
+      { id: 'p2', image: '/雪山流水.jpeg', title: '雪山流水', size: 'medium' },
+      { id: 'p3', image: '/西部公路.jpeg', title: '西部公路', size: 'medium' },
+      { id: 'p4', image: '/雪顶入云.jpeg', title: '雪顶入云', size: 'large' },
+      { id: 'p5', image: '/佛塔信仰.jpeg', title: '佛塔信仰', size: 'large' },
     ],
   },
   {
@@ -134,27 +133,51 @@ const Photography = () => {
             >
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-                  {/* Left: Photos Grid - 不规则布局 */}
+                  {/* Left: Photos - 按原始尺寸展示 */}
                   <div className="lg:col-span-7 order-2 lg:order-1">
-                    <div className="grid grid-cols-3 auto-rows-[150px] md:auto-rows-[180px] gap-3 md:gap-4">
-                      {category.photos.map((photo, photoIndex) => (
-                        <div
-                          key={photo.id}
-                          className={`${getSizeClass(photo.size)} group relative overflow-hidden rounded-lg cursor-pointer`}
-                          onClick={() => openLightbox(categoryIndex, photoIndex)}
-                        >
-                          <img
-                            src={photo.image}
-                            alt={photo.title}
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                          />
-                          {/* Hover Overlay */}
-                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                            <span className="text-white text-sm font-medium">{photo.title}</span>
+                    {category.id === '1' ? (
+                      // 川西之旅 - 原始尺寸垂直布局
+                      <div className="flex flex-col gap-6">
+                        {category.photos.map((photo, photoIndex) => (
+                          <div
+                            key={photo.id}
+                            className="group relative overflow-hidden rounded-lg cursor-pointer"
+                            onClick={() => openLightbox(categoryIndex, photoIndex)}
+                          >
+                            <img
+                              src={photo.image}
+                              alt={photo.title}
+                              className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]"
+                            />
+                            {/* Hover Overlay */}
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                              <span className="text-white text-sm font-medium">{photo.title}</span>
+                            </div>
                           </div>
-                        </div>
-                      ))}
-                    </div>
+                        ))}
+                      </div>
+                    ) : (
+                      // 其他分类 - 不规则网格布局
+                      <div className="grid grid-cols-3 auto-rows-[150px] md:auto-rows-[180px] gap-3 md:gap-4">
+                        {category.photos.map((photo, photoIndex) => (
+                          <div
+                            key={photo.id}
+                            className={`${getSizeClass(photo.size)} group relative overflow-hidden rounded-lg cursor-pointer`}
+                            onClick={() => openLightbox(categoryIndex, photoIndex)}
+                          >
+                            <img
+                              src={photo.image}
+                              alt={photo.title}
+                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            />
+                            {/* Hover Overlay */}
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                              <span className="text-white text-sm font-medium">{photo.title}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
                   {/* Right: Category Info */}
