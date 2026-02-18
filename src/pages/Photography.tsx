@@ -136,43 +136,44 @@ const Photography = () => {
                   {/* Left: Photos - 按原始尺寸展示 */}
                   <div className="lg:col-span-7 order-2 lg:order-1">
                     {category.id === '1' ? (
-                      // 川西之旅 - 原始尺寸自由布局
-                      <div className="relative">
-                        {category.photos.map((photo, photoIndex) => {
-                          // 自由错落的位置
-                          const positions = [
-                            { marginLeft: '0%', marginTop: '0', zIndex: 1 },
-                            { marginLeft: '15%', marginTop: '-40px', zIndex: 2 },
-                            { marginLeft: '-5%', marginTop: '20px', zIndex: 1 },
-                            { marginLeft: '20%', marginTop: '-20px', zIndex: 2 },
-                            { marginLeft: '5%', marginTop: '30px', zIndex: 1 },
-                          ];
-                          const pos = positions[photoIndex % positions.length];
-                          
-                          return (
-                            <div
-                              key={photo.id}
-                              className="group relative overflow-hidden rounded-lg cursor-pointer transition-all duration-500 hover:z-10 hover:scale-[1.02]"
-                              style={{
-                                marginLeft: pos.marginLeft,
-                                marginTop: pos.marginTop,
-                                zIndex: pos.zIndex,
-                                width: '85%',
-                              }}
-                              onClick={() => openLightbox(categoryIndex, photoIndex)}
-                            >
-                              <img
-                                src={photo.image}
-                                alt={photo.title}
-                                className="w-full h-auto object-contain shadow-2xl"
-                              />
-                              {/* Hover Overlay */}
-                              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                                <span className="text-white text-sm font-medium">{photo.title}</span>
+                      // 川西之旅 - 紧密错落布局
+                      <div className="relative bg-white/5 rounded-2xl p-4">
+                        <div className="flex flex-wrap items-start justify-center gap-2">
+                          {category.photos.map((photo, photoIndex) => {
+                            // 错落的大小和位置
+                            const styles = [
+                              { width: '55%', marginTop: '0', marginLeft: '0' },
+                              { width: '40%', marginTop: '8%', marginLeft: '-5%' },
+                              { width: '45%', marginTop: '-3%', marginLeft: '2%' },
+                              { width: '50%', marginTop: '5%', marginLeft: '-8%' },
+                              { width: '42%', marginTop: '-2%', marginLeft: '3%' },
+                            ];
+                            const style = styles[photoIndex % styles.length];
+                            
+                            return (
+                              <div
+                                key={photo.id}
+                                className="group relative overflow-hidden rounded-lg cursor-pointer transition-all duration-500 hover:scale-[1.03] hover:z-10 shadow-lg"
+                                style={{
+                                  width: style.width,
+                                  marginTop: style.marginTop,
+                                  marginLeft: style.marginLeft,
+                                }}
+                                onClick={() => openLightbox(categoryIndex, photoIndex)}
+                              >
+                                <img
+                                  src={photo.image}
+                                  alt={photo.title}
+                                  className="w-full h-auto object-contain"
+                                />
+                                {/* Hover Overlay */}
+                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                                  <span className="text-white text-sm font-medium">{photo.title}</span>
+                                </div>
                               </div>
-                            </div>
-                          );
-                        })}
+                            );
+                          })}
+                        </div>
                       </div>
                     ) : (
                       // 其他分类 - 不规则网格布局
