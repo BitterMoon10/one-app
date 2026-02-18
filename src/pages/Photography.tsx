@@ -136,25 +136,43 @@ const Photography = () => {
                   {/* Left: Photos - 按原始尺寸展示 */}
                   <div className="lg:col-span-7 order-2 lg:order-1">
                     {category.id === '1' ? (
-                      // 川西之旅 - 原始尺寸垂直布局
-                      <div className="flex flex-col gap-6">
-                        {category.photos.map((photo, photoIndex) => (
-                          <div
-                            key={photo.id}
-                            className="group relative overflow-hidden rounded-lg cursor-pointer"
-                            onClick={() => openLightbox(categoryIndex, photoIndex)}
-                          >
-                            <img
-                              src={photo.image}
-                              alt={photo.title}
-                              className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]"
-                            />
-                            {/* Hover Overlay */}
-                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                              <span className="text-white text-sm font-medium">{photo.title}</span>
+                      // 川西之旅 - 原始尺寸自由布局
+                      <div className="relative">
+                        {category.photos.map((photo, photoIndex) => {
+                          // 自由错落的位置
+                          const positions = [
+                            { marginLeft: '0%', marginTop: '0', zIndex: 1 },
+                            { marginLeft: '15%', marginTop: '-40px', zIndex: 2 },
+                            { marginLeft: '-5%', marginTop: '20px', zIndex: 1 },
+                            { marginLeft: '20%', marginTop: '-20px', zIndex: 2 },
+                            { marginLeft: '5%', marginTop: '30px', zIndex: 1 },
+                          ];
+                          const pos = positions[photoIndex % positions.length];
+                          
+                          return (
+                            <div
+                              key={photo.id}
+                              className="group relative overflow-hidden rounded-lg cursor-pointer transition-all duration-500 hover:z-10 hover:scale-[1.02]"
+                              style={{
+                                marginLeft: pos.marginLeft,
+                                marginTop: pos.marginTop,
+                                zIndex: pos.zIndex,
+                                width: '85%',
+                              }}
+                              onClick={() => openLightbox(categoryIndex, photoIndex)}
+                            >
+                              <img
+                                src={photo.image}
+                                alt={photo.title}
+                                className="w-full h-auto object-contain shadow-2xl"
+                              />
+                              {/* Hover Overlay */}
+                              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                                <span className="text-white text-sm font-medium">{photo.title}</span>
+                              </div>
                             </div>
-                          </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     ) : (
                       // 其他分类 - 不规则网格布局
