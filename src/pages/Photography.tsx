@@ -21,8 +21,8 @@ const categories: Category[] = [
   {
     id: '1',
     name: '川西之旅',
-    nameEn: 'Wilderness Dreams',
-    description: '远离城市喧嚣，深入自然腹地。在广袤的原野与寂静的山川之间，寻找内心的宁静与自然的对话，记录大自然最原始、最纯净的瞬间。',
+    nameEn: 'Into the Snow Mountains',
+    description: '穿越横断山脉，驰骋在海拔四千米的云端之上。雪山如银龙蜿蜒，佛塔静立风中，每一步都是对辽阔高原的朝圣。这里是离天空最近的地方，也是心灵最自由的归处。',
     photos: [
       { id: 'p1', image: '/稻城亚丁.jpeg', title: '稻城亚丁', size: 'large' },
       { id: 'p2', image: '/雪山流水.jpeg', title: '雪山流水', size: 'medium' },
