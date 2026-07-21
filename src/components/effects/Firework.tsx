@@ -58,30 +58,31 @@ export function Firework({ x, y, onComplete }: FireworkProps) {
 
     // 动画循环
     const animate = () => {
-      setParticles(prevParticles => {
-        const updated = prevParticles.map(particle => ({
+      // 注意：不要在 setState 的 updater 里调用 onComplete，
+      // 那会触发 "Cannot update a component while rendering" 错误
+      setParticles(prevParticles =>
+        prevParticles.map(particle => ({
           ...particle,
           x: particle.x + particle.vx,
           y: particle.y + particle.vy,
           vy: particle.vy + 0.1, // 重力
           life: particle.life - 0.02,
           vx: particle.vx * 0.98, // 阻力
-        }));
-
-        // 检查是否所有粒子都消失了
-        if (updated.every(p => p.life <= 0)) {
-          onComplete();
-          return [];
-        }
-
-        return updated;
-      });
+        })),
+      );
     };
 
     const interval = setInterval(animate, 16);
-    
+
     return () => clearInterval(interval);
   }, [x, y, onComplete]);
+
+  // 所有粒子消亡后通知移除（在渲染外的 effect 中调用）
+  useEffect(() => {
+    if (particles.length > 0 && particles.every(p => p.life <= 0)) {
+      onComplete();
+    }
+  }, [particles, onComplete]);
 
   if (particles.length === 0) return null;
 

@@ -150,6 +150,87 @@
   }
 }
 
+/* 星系漂浮（小振幅，避免破坏互不遮挡布局） */
+@keyframes meteorFloat {
+  from {
+    transform: translateY(-4px) rotate(-0.8deg);
+  }
+  to {
+    transform: translateY(5px) rotate(1deg);
+  }
+}
+
+/* 陨石翻滚 */
+@keyframes asteroidTumble {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 爆炸冲击波 */
+@keyframes shockwave {
+  0% {
+    transform: translate(-50%, -50%) scale(0.15);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(3.4);
+    opacity: 0;
+  }
+}
+
+/* 宇宙大爆炸：闪光核心（更久更缓） */
+@keyframes bigbangFlash {
+  0% {
+    transform: translate(-50%, -50%) scale(0.02);
+    opacity: 1;
+  }
+  35% {
+    transform: translate(-50%, -50%) scale(0.4);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}
+
+/* 宇宙大爆炸：辐射光线 */
+@keyframes bigbangRay {
+  0% {
+    transform: rotate(var(--ray-angle)) scaleX(0);
+    opacity: 1;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(var(--ray-angle)) scaleX(1);
+    opacity: 0;
+  }
+}
+
+@layer utilities {
+  .bigbang-flash {
+    animation: bigbangFlash 2.2s cubic-bezier(0.15, 0.6, 0.3, 1) forwards;
+  }
+
+  .bigbang-ray {
+    animation: bigbangRay 1.6s cubic-bezier(0.12, 0.55, 0.25, 1) forwards;
+  }
+
+  .meteor-float {
+    animation: meteorFloat 3.8s ease-in-out infinite alternate;
+  }
+
+  .shockwave {
+    animation: shockwave 0.75s cubic-bezier(0.1, 0.6, 0.2, 1) forwards;
+  }
+}
+
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
   width: 8px;

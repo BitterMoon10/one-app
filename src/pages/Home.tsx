@@ -76,7 +76,7 @@ const Home = () => {
     };
   }, [showAbout]);
 
-  const greetingWords = ['早安，', '午安', '和', '晚安。'];
+  const greetingWords = ['愿', '我们', '都能', '自由。'];
 
   return (
     <div className="relative w-full h-screen overflow-hidden bg-[#0a0a0a]">
@@ -88,7 +88,7 @@ const Home = () => {
         style={{ transitionTimingFunction: 'var(--ease-out-expo)' }}
       >
         <img
-          src="/hero-bg.jpg"
+          src="/landing.jpg"
           alt="Serene landscape"
           className="w-full h-full object-cover"
         />

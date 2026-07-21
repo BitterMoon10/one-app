@@ -1,11 +1,6 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navigation from './components/Navigation';
-import Home from './pages/Home';
-import Photography from './pages/Photography';
-import Reading from './pages/Reading';
-import Movies from './pages/Movies';
-import Thoughts from './pages/Thoughts';
 import About from './pages/About';
 import { Firework } from './components/effects/Firework';
 import './App.css';
@@ -50,12 +45,9 @@ function App() {
       <div className="min-h-screen relative">
         <Navigation />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/photography" element={<Photography />} />
-          <Route path="/reading" element={<Reading />} />
-          <Route path="/movies" element={<Movies />} />
-          <Route path="/thoughts" element={<Thoughts />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/me" element={<About />} />
+          {/* 其他页面已禁用，全部重定向到关于我 */}
+          <Route path="*" element={<Navigate to="/me" replace />} />
         </Routes>
         
         {/* 渲染所有烟花效果 */}

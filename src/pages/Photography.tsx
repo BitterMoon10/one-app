@@ -13,49 +13,66 @@ interface Category {
   name: string;
   nameEn: string;
   description: string;
+  layout?: 'horizontal' | 'vertical' | 'masonry' | 'horizontal-tile' | 'vertical-tile';
   photos: PhotoItem[];
 }
 
 // 静态虚拟摄影项目数据 - 不规则布局
 const categories: Category[] = [
   {
-    id: '1',
+    id: '0',
     name: '川西之旅',
     nameEn: 'Into the Snow Mountains',
-    description: '穿越横断山脉，驰骋在海拔四千米的云端之上。雪山如银龙蜿蜒，佛塔静立风中，每一步都是对辽阔高原的朝圣。这里是离天空最近的地方，也是心灵最自由的归处。',
+    description: '穿越318，驰骋在海拔四千米的云端之上。雪山如银龙蜿蜒，佛塔静立风中，每一步都是对辽阔高原的朝圣。这里是离天空最近的地方，也是心灵最自由的归处。',
+    layout: 'horizontal',
     photos: [
-      { id: 'p1', image: '/稻城亚丁.jpeg', title: '稻城亚丁', size: 'large' },
-      { id: 'p2', image: '/雪山流水.jpeg', title: '雪山流水', size: 'medium' },
-      { id: 'p3', image: '/雪顶入云.jpeg', title: '雪顶入云', size: 'large' },  // 竖图放第3位
-      { id: 'p4', image: '/西部公路.jpeg', title: '西部公路', size: 'medium' },
-      { id: 'p5', image: '/佛塔信仰.jpeg', title: '佛塔信仰', size: 'large' },
+      { id: 'p00', image: '/稻城亚丁.jpeg', title: '稻城亚丁', size: 'large' },
+      { id: 'p01', image: '/雪山流水.jpeg', title: '雪山流水', size: 'medium' },
+      { id: 'p02', image: '/雪顶入云.jpeg', title: '雪顶入云', size: 'large' },  // 竖图放第3位
+      { id: 'p03', image: '/西部公路.jpeg', title: '西部公路', size: 'medium' },
+      { id: 'p04', image: '/佛塔信仰.jpeg', title: '佛塔信仰', size: 'large' },
+    ],
+  },
+  {
+    id: '1',
+    name: '迷宫的十字路口',
+    nameEn: 'Crossroads of the Labyrinth',
+    description: '在古都的迷宫中，寻找历史与现代的交汇点。每一条街巷都藏着故事，每一个转角都可能遇见惊喜。这里是时间的交错，也是文化的碰撞。',
+    layout: 'vertical',
+    photos: [
+      { id: 'p10', image: '/世纪之吻.jpeg', title: '世纪之吻', size: 'large' },
+      { id: 'p11', image: '/清水寺.jpeg', title: '清水寺', size: 'small' },
+      { id: 'p12', image: '/惊鸿一瞥.jpeg', title: '惊鸿一瞥', size: 'medium' },
+      { id: 'p13', image: '/稻荷大社.jpeg', title: '稻荷大社', size: 'medium' },
+      { id: 'p14', image: '/鸭川.jpeg', title: '鸭川', size: 'large' },
+      { id: 'p15', image: '/四条夜景.jpeg', title: '四条夜景', size: 'medium' },
     ],
   },
   {
     id: '2',
-    name: '人文印记',
-    nameEn: 'Human Imprints',
-    description: '行走在世界各地，捕捉不同文化背景下的人文风情。从古老建筑到街头巷尾，每一帧画面都诉说着独特的故事与情感。',
+    name: '新垣结衣的故乡',
+    nameEn: 'Gakki’s Hometown',
+    description: '在这个被大海环绕的小岛上，感受新垣结衣笑容一般的温暖与纯净。海风轻拂，阳光洒在沙滩上，每一处风景都像她的笑容一样明媚动人。',
     photos: [
-      { id: 'p7', image: '/photo-4.jpg', title: '樱花古刹', size: 'medium' },
-      { id: 'p8', image: '/photo-5.jpg', title: '沙漠驼队', size: 'large' },
-      { id: 'p9', image: '/photo-6.jpg', title: '威尼斯晨雾', size: 'small' },
-      { id: 'p10', image: '/photo-8.jpg', title: '巴黎铁塔', size: 'medium' },
-      { id: 'p11', image: '/photo-9.jpg', title: '桂林山水', size: 'large' },
-      { id: 'p12', image: '/photo-12.jpg', title: '泰姬陵日出', size: 'small' },
+      { id: 'p20', image: '/玻璃海面.jpeg', title: '玻璃海面', size: 'medium' },
+      { id: 'p21', image: '/湛蓝海岸.jpeg', title: '湛蓝海岸', size: 'medium' },
+      { id: 'p22', image: '/蜿蜒沙滩.jpeg', title: '蜿蜒沙滩', size: 'medium' },
+      { id: 'p23', image: '/落日余晖.jpeg', title: '落日余晖', size: 'large' },
+      { id: 'p24', image: '/天空之城.jpeg', title: '天空之城', size: 'medium' },
     ],
   },
   {
     id: '3',
-    name: '城市光影',
-    nameEn: 'Urban Light',
-    description: '在钢筋水泥的森林中，寻找光与影的交织。霓虹灯下的夜晚，日落时分的剪影，城市有着属于自己的独特美学。',
+    name: '夜游颐和园',
+    nameEn: 'Night at the Summer Palace',
+    description: '在古老的园林中，感受夜晚的静谧与神秘。月光洒在湖面上，古建筑在灯光下更显庄重典雅，仿佛穿越回了千年前的盛世。',
+    layout: 'masonry',
     photos: [
-      { id: 'p13', image: '/photo-street.jpg', title: '雨夜霓虹', size: 'large' },
-      { id: 'p14', image: '/photo-10.jpg', title: '非洲草原', size: 'medium' },
-      { id: 'p15', image: '/photo-11.jpg', title: '曼哈顿黄昏', size: 'large' },
-      { id: 'p16', image: '/hero-bg.jpg', title: '静谧湖面', size: 'small' },
-      { id: 'p17', image: '/photo-portrait.jpg', title: '午后阳光', size: 'medium' },
+      { id: 'p30', image: '/历史与现代.jpeg', title: '历史与现代', size: 'medium' },
+      { id: 'p31', image: '/落日余晖.jpeg', title: '落日余晖', size: 'medium' },
+      { id: 'p32', image: '/胶片.jpeg', title: '胶片', size: 'large' },
+      { id: 'p33', image: '/画廊.jpeg', title: '画廊', size: 'large' },
+      { id: 'p34', image: '/灯笼.jpeg', title: '灯笼', size: 'medium' },
     ],
   },
 ];
@@ -101,20 +118,6 @@ const Photography = () => {
     setCurrentImageIndex((prev) => (prev === getCurrentImages().length - 1 ? 0 : prev + 1));
   };
 
-  // 获取图片尺寸类名
-  const getSizeClass = (size: string) => {
-    switch (size) {
-      case 'large':
-        return 'col-span-2 row-span-2';
-      case 'medium':
-        return 'col-span-1 row-span-2';
-      case 'small':
-        return 'col-span-1 row-span-1';
-      default:
-        return 'col-span-1 row-span-1';
-    }
-  };
-
   return (
     <div className="min-h-screen bg-[#0a0a0a]">
       {/* Main Content */}
@@ -133,32 +136,34 @@ const Photography = () => {
             >
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-                  {/* Left: Photos - 按原始尺寸展示 */}
+                  {/* Left: Photos - 灵活布局 */}
                   <div className="lg:col-span-7 order-2 lg:order-1">
-                    {category.id === '1' ? (
-                      // 川西之旅 - 规整布局：左2横图 + 右1竖图
-                      <div className="grid grid-cols-2 gap-3">
-                        {/* 左侧：两张横向图片上下排列 */}
-                        <div className="flex flex-col gap-3">
-                          {category.photos.slice(0, 2).map((photo, photoIndex) => (
-                            <div
-                              key={photo.id}
-                              className="group relative overflow-hidden rounded-lg cursor-pointer flex-1"
-                              onClick={() => openLightbox(categoryIndex, photoIndex)}
-                            >
-                              <img
-                                src={photo.image}
-                                alt={photo.title}
-                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                              />
-                              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                                <span className="text-white text-sm font-medium">{photo.title}</span>
+                    {/* 根据 layout 类型渲染不同布局 */}
+                    {category.layout === 'horizontal-tile' ? (
+                      // 横向平铺：2x2横图 + 右侧竖图
+                      <div className="flex gap-3">
+                        <div className="flex-1 grid grid-cols-2 gap-3">
+                          {category.photos.filter((_, i) => i !== 2).map((photo, photoIndex) => {
+                            const actualIndex = photoIndex >= 2 ? photoIndex + 1 : photoIndex;
+                            return (
+                              <div
+                                key={photo.id}
+                                className="group relative overflow-hidden rounded-lg cursor-pointer"
+                                onClick={() => openLightbox(categoryIndex, actualIndex)}
+                              >
+                                <img
+                                  src={photo.image}
+                                  alt={photo.title}
+                                  className="w-full h-auto object-contain"
+                                />
+                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                                  <span className="text-white text-sm font-medium">{photo.title}</span>
+                                </div>
                               </div>
-                            </div>
-                          ))}
+                            );
+                          })}
                         </div>
-                        {/* 右侧：一张竖向图片占满高度 */}
-                        <div className="row-span-1">
+                        <div className="w-[35%]">
                           {category.photos[2] && (
                             <div
                               key={category.photos[2].id}
@@ -168,50 +173,73 @@ const Photography = () => {
                               <img
                                 src={category.photos[2].image}
                                 alt={category.photos[2].title}
-                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                className="w-full h-full object-contain"
                               />
-                              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
                                 <span className="text-white text-sm font-medium">{category.photos[2].title}</span>
                               </div>
                             </div>
                           )}
                         </div>
-                        {/* 底部：剩余两张横向图片并排 */}
-                        <div className="col-span-2 grid grid-cols-2 gap-3">
-                          {category.photos.slice(3).map((photo, photoIndex) => (
+                      </div>
+                    ) : category.layout === 'vertical-tile' ? (
+                      // 纵向平铺：左侧竖图 + 右侧2x2横图
+                      <div className="flex gap-3">
+                        <div className="w-[35%]">
+                          {category.photos[2] && (
                             <div
-                              key={photo.id}
-                              className="group relative overflow-hidden rounded-lg cursor-pointer aspect-[16/9]"
-                              onClick={() => openLightbox(categoryIndex, photoIndex + 3)}
+                              key={category.photos[2].id}
+                              className="group relative overflow-hidden rounded-lg cursor-pointer h-full"
+                              onClick={() => openLightbox(categoryIndex, 2)}
                             >
                               <img
-                                src={photo.image}
-                                alt={photo.title}
-                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                src={category.photos[2].image}
+                                alt={category.photos[2].title}
+                                className="w-full h-full object-contain"
                               />
-                              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                                <span className="text-white text-sm font-medium">{photo.title}</span>
+                              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                                <span className="text-white text-sm font-medium">{category.photos[2].title}</span>
                               </div>
                             </div>
-                          ))}
+                          )}
+                        </div>
+                        <div className="flex-1 grid grid-cols-2 gap-3">
+                          {category.photos.filter((_, i) => i !== 2).map((photo, photoIndex) => {
+                            const actualIndex = photoIndex >= 2 ? photoIndex + 1 : photoIndex;
+                            return (
+                              <div
+                                key={photo.id}
+                                className="group relative overflow-hidden rounded-lg cursor-pointer"
+                                onClick={() => openLightbox(categoryIndex, actualIndex)}
+                              >
+                                <img
+                                  src={photo.image}
+                                  alt={photo.title}
+                                  className="w-full h-auto object-contain"
+                                />
+                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                                  <span className="text-white text-sm font-medium">{photo.title}</span>
+                                </div>
+                              </div>
+                            );
+                          })}
                         </div>
                       </div>
                     ) : (
-                      // 其他分类 - 不规则网格布局
-                      <div className="grid grid-cols-3 auto-rows-[150px] md:auto-rows-[180px] gap-3 md:gap-4">
+                      // 默认： masonry 瀑布流布局
+                      <div className="columns-2 gap-3 space-y-3">
                         {category.photos.map((photo, photoIndex) => (
                           <div
                             key={photo.id}
-                            className={`${getSizeClass(photo.size)} group relative overflow-hidden rounded-lg cursor-pointer`}
+                            className="group relative overflow-hidden rounded-lg cursor-pointer break-inside-avoid"
                             onClick={() => openLightbox(categoryIndex, photoIndex)}
                           >
                             <img
                               src={photo.image}
                               alt={photo.title}
-                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                              className="w-full h-auto object-contain"
                             />
-                            {/* Hover Overlay */}
-                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
                               <span className="text-white text-sm font-medium">{photo.title}</span>
                             </div>
                           </div>
@@ -220,8 +248,8 @@ const Photography = () => {
                     )}
                   </div>
 
-                  {/* Right: Category Info */}
-                  <div className="lg:col-span-5 order-1 lg:order-2 flex flex-col justify-center">
+                  {/* Right: Category Info - 放在下方 */}
+                  <div className="col-span-12 order-1 mb-8">
                     <div className="lg:sticky lg:top-32">
                       {/* Index Number */}
                       <div className="text-white/30 text-sm mb-4">
