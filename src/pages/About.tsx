@@ -1,169 +1,85 @@
 import { useEffect, useState } from 'react';
-import { MessageCircle, User } from 'lucide-react';
+import { Volume2, VolumeX } from 'lucide-react';
+import StarField from '../components/effects/StarField';
+import DimensionCube from '../components/effects/DimensionCube';
+import { cosmicMusic } from '../utils/cosmicMusic';
 
 const About = () => {
   const [loaded, setLoaded] = useState(false);
+  const [musicOn, setMusicOn] = useState(false);
+  const [exploded, setExploded] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setLoaded(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
+  // 立方体爆炸时隐藏页面自身标题/简介（DimensionCube 广播的状态）
+  useEffect(() => {
+    const handler = (e: Event) =>
+      setExploded((e as CustomEvent<boolean>).detail);
+    window.addEventListener('dimension-explode', handler);
+    return () => window.removeEventListener('dimension-explode', handler);
+  }, []);
+
+  // 浏览器自动播放限制：首次交互时启动背景音乐
+  useEffect(() => {
+    const startOnce = () => {
+      if (!cosmicMusic.isPlaying()) {
+        cosmicMusic.start();
+        setMusicOn(true);
+      }
+    };
+    window.addEventListener('pointerdown', startOnce, { once: true });
+    return () => window.removeEventListener('pointerdown', startOnce);
+  }, []);
+
+  const toggleMusic = () => {
+    setMusicOn(cosmicMusic.toggle());
+  };
+
   return (
-    <div className="min-h-screen bg-[#0a0a0a]">
-      {/* Main Content */}
-      <main className="pt-24 pb-20">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center min-h-[70vh]">
-            {/* Left: Avatar */}
-            <div
-              className={`relative transition-all duration-1000 ${
-                loaded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'
-              }`}
-            >
-              <div className="relative max-w-md mx-auto lg:mx-0">
-                {/* Decorative Elements */}
-                <div className="absolute -top-4 -left-4 w-24 h-24 bg-white/5 rounded-full blur-2xl" />
-                <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-white/5 rounded-full blur-2xl" />
-                
-                {/* Image Container */}
-                <div 
-                  className="relative overflow-hidden rounded-2xl"
-                  style={{
-                    clipPath: loaded ? 'polygon(0 0, 100% 0, 85% 100%, 0 100%)' : 'polygon(0 0, 0 0, 0 100%, 0 100%)',
-                    transition: 'clip-path 1s var(--ease-out-expo) 0.2s',
-                  }}
-                >
-                  <img
-                    src="/avatar.jpg"
-                    alt="个人头像"
-                    className={`w-full aspect-[3/4] object-cover transition-all duration-1200 ${
-                      loaded ? 'scale-100 grayscale-0' : 'scale-110 grayscale'
-                    }`}
-                    style={{ transitionTimingFunction: 'var(--ease-smooth)' }}
-                  />
-                </div>
+    <div className="relative min-h-screen min-h-dvh overflow-hidden">
+      <StarField />
 
-                {/* Floating Badge */}
-                <div 
-                  className={`absolute -bottom-6 -right-6 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 p-4 transition-all duration-700 ${
-                    loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                  }`}
-                  style={{ transitionDelay: '800ms' }}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
-                      <MessageCircle className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <p className="text-xs text-white/40">联系我</p>
-                      <p className="text-sm font-medium text-white">WeChat</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right: Content */}
-            <div className="space-y-8">
-              {/* Title */}
-              <div
-                className={`transition-all duration-700 ${
-                  loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                }`}
-                style={{ transitionDelay: '400ms' }}
-              >
-                <div className="flex items-center gap-3 mb-2">
-                  <User className="w-7 h-7 text-white/60" />
-                  <h2 className="text-4xl md:text-5xl font-light text-white">
-                    关于我
-                  </h2>
-                </div>
-                <div className="w-16 h-0.5 bg-gradient-to-r from-white/40 to-white/10" />
-              </div>
-
-              {/* Bio */}
-              <div className="space-y-6">
-                <p
-                  className={`text-white/50 leading-relaxed transition-all duration-600 ${
-                    loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                  }`}
-                  style={{ transitionDelay: '600ms' }}
-                >
-                  我是一名热爱生活的摄影师，相信每一个瞬间都值得被记录。从清晨的第一缕阳光到夜晚的万家灯火，从繁华都市的街头巷尾到宁静乡村的田野山间，我的镜头始终追寻着那些容易被忽视的美好。
-                </p>
-
-                <p
-                  className={`text-white/50 leading-relaxed transition-all duration-600 ${
-                    loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                  }`}
-                  style={{ transitionDelay: '720ms' }}
-                >
-                  摄影于我而言，不仅仅是按下快门的动作，更是一种观察世界的方式。我学会了在平凡中发现不凡，在喧嚣中寻找宁静。每一张照片背后，都承载着我对生活的思考与感悟。
-                </p>
-
-                <p
-                  className={`text-white/50 leading-relaxed transition-all duration-600 ${
-                    loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                  }`}
-                  style={{ transitionDelay: '840ms' }}
-                >
-                  除了摄影，我还热爱阅读和电影。书籍让我与伟大的思想对话，电影让我体验不同的人生。我希望通过我的作品，能够传递出对生活的热爱和对美的追求。
-                </p>
-              </div>
-
-              {/* Social Links */}
-              <div
-                className={`pt-6 transition-all duration-500 ${
-                  loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                }`}
-                style={{ transitionDelay: '1000ms' }}
-              >
-                <p className="text-sm text-white/30 mb-4">社交媒体</p>
-                <div className="flex items-center gap-4">
-                  <a
-                    href="#"
-                    className="group flex items-center gap-3 px-5 py-3 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 hover:border-white/20 transition-all duration-300"
-                  >
-                    <div className="w-8 h-8 rounded-full bg-green-500/80 flex items-center justify-center">
-                      <MessageCircle className="w-4 h-4 text-white" />
-                    </div>
-                    <span className="text-sm font-medium text-white/70 group-hover:text-white">
-                      WeChat
-                    </span>
-                  </a>
-                </div>
-              </div>
-
-              {/* Stats */}
-              <div
-                className={`grid grid-cols-3 gap-6 pt-8 border-t border-white/10 transition-all duration-500 ${
-                  loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                }`}
-                style={{ transitionDelay: '1100ms' }}
-              >
-                <div className="text-center">
-                  <p className="text-2xl md:text-3xl font-light text-white">5+</p>
-                  <p className="text-xs text-white/30 mt-1">年摄影经验</p>
-                </div>
-                <div className="text-center">
-                  <p className="text-2xl md:text-3xl font-light text-white">1000+</p>
-                  <p className="text-xs text-white/30 mt-1">作品数量</p>
-                </div>
-                <div className="text-center">
-                  <p className="text-2xl md:text-3xl font-light text-white">50+</p>
-                  <p className="text-xs text-white/30 mt-1">阅读书籍</p>
-                </div>
-              </div>
-            </div>
-          </div>
+      <main className="relative flex min-h-screen min-h-dvh flex-col items-center justify-center px-4 pb-24 pt-24">
+        {/* 立方体 */}
+        <div
+          className={`relative my-14 scale-[0.72] transition-all delay-300 duration-1000 sm:scale-90 md:scale-100 ${
+            loaded ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          {/* 立方体后方的辉光 */}
+          <div className="absolute left-1/2 top-1/2 -z-10 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/10 blur-3xl" />
+          <DimensionCube />
         </div>
+
+        {/* 简介 */}
+        <p
+          className={`mt-8 max-w-xl text-center text-sm leading-loose text-white/45 transition-all delay-700 duration-1000 ${
+            loaded && !exploded
+              ? 'opacity-100 translate-y-0'
+              : 'opacity-0 translate-y-4'
+          }`}
+          style={{ textShadow: '0 1px 8px rgba(0, 0, 0, 0.85)' }}
+        >
+          我是一个程序员，程序是0和1的世界，但我反对非黑即白。
+        </p>
       </main>
 
-      {/* Footer */}
-      <footer className="py-12 text-center text-white/30 text-sm border-t border-white/10">
-        <p>© 2024 山岚 · 用镜头记录世界</p>
-      </footer>
+      {/* 音乐开关 */}
+      <button
+        onClick={toggleMusic}
+        className="fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-white/5 backdrop-blur-md transition-all duration-300 hover:border-white/35 hover:bg-white/10"
+        aria-label={musicOn ? '关闭背景音乐' : '播放背景音乐'}
+        title={musicOn ? '关闭背景音乐' : '播放背景音乐'}
+      >
+        {musicOn ? (
+          <Volume2 className="h-5 w-5 text-white/80" />
+        ) : (
+          <VolumeX className="h-5 w-5 text-white/45" />
+        )}
+      </button>
     </div>
   );
 };
