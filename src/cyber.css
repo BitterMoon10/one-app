@@ -1,0 +1,510 @@
+/* ==========================================================================
+   赛博朋克主题覆盖层（data-theme='cyber'）
+   只在 <html data-theme='cyber'> 时生效；默认 pirate 主题完全不受影响。
+   所有规则带 [data-theme='cyber'] 前缀提高特异性，覆盖 Tailwind 任意值类
+   与 App.css 里的 .pirate-* 自定义类。不改动任何组件文案与数据结构。
+   ========================================================================== */
+
+/* ---------- 全局基底 ---------- */
+
+[data-theme='cyber'] body {
+  background-color: #07070f;
+  color: #d8f3ff;
+}
+
+[data-theme='cyber'] ::selection {
+  background: #00f0ff;
+  color: #05050c;
+}
+
+/* CRT 扫描线：固定覆盖全屏，有效透明度约 18%（能看出 CRT 感但不影响阅读），不拦截点击 */
+[data-theme='cyber'] body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.24) 0,
+    rgba(0, 0, 0, 0.24) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  opacity: 0.75;
+}
+
+/* ---------- 页面底色 #f5f5f5 → #07070f + 淡网格底纹 ---------- */
+
+[data-theme='cyber'] .bg-\[\#f5f5f5\] {
+  background-color: #07070f;
+  background-image:
+    linear-gradient(rgba(0, 240, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+/* ---------- 卡片/面板底 #fafafa、#fff、#f0f0f0 → #10101c ---------- */
+
+[data-theme='cyber'] .bg-\[\#fafafa\],
+[data-theme='cyber'] .bg-white,
+[data-theme='cyber'] .bg-\[\#f0f0f0\] {
+  background-color: #10101c;
+}
+
+/* 图片占位底 #eee → #1a1a2e */
+[data-theme='cyber'] .bg-\[\#eee\] {
+  background-color: #1a1a2e;
+}
+
+/* ---------- 边框/分隔线 #ddd、#ccc、#bbb、#eee → #22304a ---------- */
+
+[data-theme='cyber'] .border-\[\#ddd\],
+[data-theme='cyber'] .border-\[\#ccc\],
+[data-theme='cyber'] .border-\[\#bbb\] {
+  border-color: #22304a;
+}
+
+[data-theme='cyber'] .divide-\[\#eee\] > :not([hidden]) ~ :not([hidden]) {
+  border-color: #22304a;
+}
+
+/* ---------- 正文 #333 → 冷白 #d8f3ff ---------- */
+
+[data-theme='cyber'] .text-\[\#333\] {
+  color: #d8f3ff;
+}
+
+/* ---------- 次要文字 #777、#999、#8b949e（及 #aaa/#bbb/#ccc 文本用法）→ #7a9bb0 ---------- */
+
+[data-theme='cyber'] .text-\[\#777\],
+[data-theme='cyber'] .text-\[\#999\],
+[data-theme='cyber'] .text-\[\#8b949e\],
+[data-theme='cyber'] .text-\[\#aaa\],
+[data-theme='cyber'] .text-\[\#bbb\],
+[data-theme='cyber'] .text-\[\#ccc\] {
+  color: #7a9bb0;
+}
+
+[data-theme='cyber'] .text-\[\#8b949e\]\/60 {
+  color: rgb(122 155 176 / 0.6);
+}
+
+/* 空心评分星星 #ddd → 暗蓝灰 */
+[data-theme='cyber'] .text-\[\#ddd\] {
+  color: #3d4f6b;
+}
+
+/* 猫片广告关闭按钮等处的纯黑文字 #000 → 冷白 */
+[data-theme='cyber'] .text-\[\#000\] {
+  color: #d8f3ff;
+}
+
+/* 删除线 decoration #000 → 冷白 */
+[data-theme='cyber'] .decoration-\[\#000\] {
+  text-decoration-color: #d8f3ff;
+}
+
+/* ---------- 强调红 #f00 → 霓虹品红 #ff2e88 ---------- */
+
+[data-theme='cyber'] .text-\[\#f00\] {
+  color: #ff2e88;
+  text-shadow: 0 0 6px rgb(255 46 136 / 0.55);
+}
+
+[data-theme='cyber'] .bg-\[\#f00\] {
+  background-color: #ff2e88;
+  box-shadow: 0 0 12px rgb(255 46 136 / 0.35);
+}
+
+[data-theme='cyber'] .border-\[\#f00\] {
+  border-color: #ff2e88;
+}
+
+[data-theme='cyber'] .ring-\[\#f00\] {
+  --tw-ring-color: #ff2e88;
+}
+
+/* 相关推荐里的暗红小字 #a00 → 浅品红 */
+[data-theme='cyber'] .text-\[\#a00\] {
+  color: #ff5ea0;
+}
+
+/* ---------- 高亮黄 #ffff00 / 暗底黄 #ffd75e → #fcee0a ---------- */
+
+/* 黄底元素统一改「深底霓虹黄字」：琥珀玻璃底 + 黄色霓虹描边，避免大面积黄底连成片 */
+[data-theme='cyber'] .bg-\[\#ffff00\] {
+  background-color: rgb(252 238 10 / 0.08);
+  box-shadow:
+    inset 0 0 0 1px rgb(252 238 10 / 0.45),
+    0 0 12px rgb(252 238 10 / 0.12);
+}
+
+/* 黄底上的红字 → 霓虹黄字（公告条、404 按钮、toast、选中态 tab 等） */
+[data-theme='cyber'] .bg-\[\#ffff00\].text-\[\#f00\],
+[data-theme='cyber'] .bg-\[\#ffff00\] .text-\[\#f00\] {
+  color: #fcee0a;
+  text-shadow: 0 0 8px rgb(252 238 10 / 0.6);
+}
+
+/* 压在图片上的徽章（如选集「播放中」）：用实底深色，否则 8% 琥珀底会被亮图冲淡 */
+[data-theme='cyber'] .absolute.bg-\[\#ffff00\] {
+  background-color: rgb(10 10 20 / 0.88);
+}
+
+/* 顶部滚动公告条：深底 + 霓虹黄字 + 青色描边 */
+[data-theme='cyber'] div:has(> .pirate-marquee) {
+  box-shadow:
+    inset 0 0 0 1px rgb(0 240 255 / 0.45),
+    0 0 14px rgb(0 240 255 / 0.15);
+}
+
+[data-theme='cyber'] .text-\[\#ffff00\] {
+  color: #fcee0a;
+  text-shadow: 0 0 8px rgb(252 238 10 / 0.5);
+}
+
+[data-theme='cyber'] .border-\[\#ffff00\] {
+  border-color: #fcee0a;
+}
+
+[data-theme='cyber'] .text-\[\#ffd75e\] {
+  color: #fcee0a;
+  text-shadow: 0 0 8px rgb(252 238 10 / 0.45);
+}
+
+[data-theme='cyber'] .bg-\[\#ffd75e\] {
+  background-color: #fcee0a;
+}
+
+/* ---------- 链接蓝 #00e → 霓虹青 #00f0ff ---------- */
+
+[data-theme='cyber'] .text-\[\#00e\] {
+  color: #00f0ff;
+  text-shadow: 0 0 6px rgb(0 240 255 / 0.55);
+}
+
+[data-theme='cyber'] .bg-\[\#00e\] {
+  background-color: #00f0ff;
+  box-shadow: 0 0 10px rgb(0 240 255 / 0.35);
+}
+
+/* 青色底徽标上的白字改深底字，保证可读（选集「中字」角标等） */
+[data-theme='cyber'] .bg-\[\#00e\].text-white {
+  color: #05050c;
+}
+
+[data-theme='cyber'] .border-\[\#00e\] {
+  border-color: #00f0ff;
+}
+
+/* ---------- 站头深色 #1a2233 / #141b2b → #05050c / #0a0a14 ---------- */
+
+[data-theme='cyber'] .bg-\[\#1a2233\] {
+  background-color: #05050c;
+}
+
+[data-theme='cyber'] .bg-\[\#141b2b\]\/80 {
+  background-color: rgb(10 10 20 / 0.8);
+}
+
+/* 站头描边 #0f1522 → #1a2436 */
+[data-theme='cyber'] .border-\[\#0f1522\] {
+  border-color: #1a2436;
+}
+
+/* 站头整体加一道青色霓虹下沿 */
+[data-theme='cyber'] header {
+  box-shadow:
+    0 1px 0 #1a2436,
+    0 6px 24px rgb(0 240 255 / 0.14);
+}
+
+/* ---------- 搜索框 #2c3a55 / #0d1117 → #141c2c / #0a0a14 ---------- */
+
+[data-theme='cyber'] .bg-\[\#2c3a55\] {
+  background-color: #141c2c;
+}
+
+[data-theme='cyber'] .border-\[\#2c3a55\] {
+  border-color: #141c2c;
+}
+
+[data-theme='cyber'] .bg-\[\#0d1117\] {
+  background-color: #0a0a14;
+}
+
+/* ---------- VIP 红 #ff4d4f / #ff6b6d → 霓虹品红 #ff2e88 ---------- */
+
+[data-theme='cyber'] .bg-\[\#ff4d4f\] {
+  background-color: #ff2e88;
+  box-shadow: 0 0 14px rgb(255 46 136 / 0.45);
+}
+
+[data-theme='cyber'] .text-\[\#ff4d4f\] {
+  color: #ff2e88;
+}
+
+[data-theme='cyber'] .hover\:bg-\[\#ff6b6d\]:hover {
+  background-color: #ff5ea0;
+  box-shadow: 0 0 18px rgb(255 46 136 / 0.6);
+}
+
+/* ---------- 评分星星 #f5a623 → #fcee0a ---------- */
+
+[data-theme='cyber'] .text-\[\#f5a623\] {
+  color: #fcee0a;
+  text-shadow: 0 0 6px rgb(252 238 10 / 0.5);
+}
+
+[data-theme='cyber'] .border-\[\#f5a623\] {
+  border-color: #fcee0a;
+}
+
+/* ---------- 播放器文字 #c9d1d9 → #d8f3ff ---------- */
+
+[data-theme='cyber'] .text-\[\#c9d1d9\] {
+  color: #d8f3ff;
+}
+
+/* ---------- 选中态浅底 #fff5f5 → 暗品红 #2a0f22 ---------- */
+
+[data-theme='cyber'] .bg-\[\#fff5f5\] {
+  background-color: #2a0f22;
+}
+
+/* ---------- 播放器深色件 ---------- */
+
+[data-theme='cyber'] .border-\[\#222\] {
+  border-color: #22304a;
+  box-shadow: 0 0 28px rgb(0 240 255 / 0.12);
+}
+
+[data-theme='cyber'] .bg-\[\#161b27\] {
+  background-color: #0a0a14;
+}
+
+[data-theme='cyber'] .border-\[\#232a3a\] {
+  border-color: #22304a;
+}
+
+/* 播放器进度圆点（未激活）：白 50% → 青 35% */
+[data-theme='cyber'] .bg-white\/50 {
+  background-color: rgb(0 240 255 / 0.35);
+}
+
+/* ---------- 对联广告纯色底：换成深色霓虹 ---------- */
+
+[data-theme='cyber'] .bg-\[\#c00\] {
+  background-color: #a0004f;
+}
+
+[data-theme='cyber'] .bg-\[\#0066cc\] {
+  background-color: #00506e;
+}
+
+/* ---------- 相关推荐海报渐变 #1a2233 → #0a0e17 ---------- */
+
+[data-theme='cyber'] .from-\[\#1a2233\] {
+  --tw-gradient-from: #05050c var(--tw-gradient-from-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+[data-theme='cyber'] .to-\[\#0a0e17\] {
+  --tw-gradient-to: #0a0a14 var(--tw-gradient-to-position);
+}
+
+/* ---------- hover 变体 ---------- */
+
+[data-theme='cyber'] .hover\:text-\[\#ffd75e\]:hover {
+  color: #fcee0a;
+}
+
+[data-theme='cyber'] .hover\:text-\[\#ffff00\]:hover {
+  color: #fcee0a;
+}
+
+[data-theme='cyber'] .hover\:text-\[\#333\]:hover {
+  color: #d8f3ff;
+}
+
+[data-theme='cyber'] .hover\:bg-\[\#f5f5f5\]:hover {
+  background-color: #1a1a2e;
+}
+
+[data-theme='cyber'] .hover\:bg-\[\#f00\]:hover {
+  background-color: #ff2e88;
+}
+
+[data-theme='cyber'] .hover\:border-\[\#00e\]:hover {
+  border-color: #00f0ff;
+}
+
+[data-theme='cyber'] .hover\:border-\[\#f00\]:hover {
+  border-color: #ff2e88;
+}
+
+[data-theme='cyber'] .hover\:border-\[\#999\]:hover {
+  border-color: #7a9bb0;
+}
+
+/* ---------- .pirate-* 自定义类覆盖 ---------- */
+
+/* 经典蓝链接 → 霓虹青 + 发光，hover 变品红 */
+[data-theme='cyber'] .pirate-link {
+  color: #00f0ff;
+  text-shadow: 0 0 6px rgb(0 240 255 / 0.6);
+}
+
+[data-theme='cyber'] .pirate-link:hover {
+  color: #ff2e88;
+  text-shadow: 0 0 8px rgb(255 46 136 / 0.7);
+}
+
+/* 黄底红字高亮 → 深底霓虹黄字 chip（琥珀玻璃底 + 黄字 + 细霓虹描边） */
+[data-theme='cyber'] .pirate-highlight {
+  background: rgb(252 238 10 / 0.1);
+  color: #fcee0a;
+  text-shadow: 0 0 6px rgb(252 238 10 / 0.45);
+  box-shadow: 0 0 0 1px rgb(252 238 10 / 0.3);
+}
+
+/* 信息面板：深底 + 青色霓虹描边 */
+[data-theme='cyber'] .pirate-panel {
+  background: #10101c;
+  border: 1px solid #22304a;
+  box-shadow:
+    0 0 0 1px rgb(0 240 255 / 0.08),
+    0 0 20px rgb(0 240 255 / 0.07);
+}
+
+/* ---------- 站名 glitch：青色霓虹 + 品红/青重影抖动 ---------- */
+
+@keyframes cyber-glitch {
+  0%,
+  86%,
+  100% {
+    transform: translate(0, 0) skewX(0deg);
+    /* 常驻 ±1px 品红/青 RGB 色差重影 + 青色霓虹辉光 */
+    text-shadow:
+      1px 0 0 rgb(255 46 136 / 0.75),
+      -1px 0 0 rgb(0 240 255 / 0.75),
+      0 0 6px rgb(0 240 255 / 0.9),
+      0 0 20px rgb(0 240 255 / 0.45),
+      0 0 42px rgb(0 240 255 / 0.25);
+  }
+  88% {
+    transform: translate(-2px, 1px) skewX(-8deg);
+    text-shadow:
+      -3px 0 rgb(255 46 136 / 0.9),
+      3px 0 rgb(0 240 255 / 0.9),
+      0 0 18px rgb(0 240 255 / 0.7);
+  }
+  90% {
+    transform: translate(2px, -1px);
+    text-shadow:
+      3px 0 rgb(255 46 136 / 0.9),
+      -3px 0 rgb(0 240 255 / 0.9);
+  }
+  92% {
+    transform: translate(-1px, 0) skewX(6deg);
+    text-shadow:
+      -4px 0 rgb(255 46 136 / 0.8),
+      2px 0 rgb(0 240 255 / 0.8),
+      0 0 24px rgb(255 46 136 / 0.5);
+  }
+  94% {
+    transform: translate(1px, 1px);
+    text-shadow:
+      2px 0 rgb(255 46 136 / 0.9),
+      -2px 0 rgb(0 240 255 / 0.9);
+  }
+  96% {
+    transform: translate(0, 0) skewX(0deg);
+  }
+}
+
+[data-theme='cyber'] .pirate-logo-text {
+  background: none;
+  -webkit-text-fill-color: #00f0ff;
+  color: #00f0ff;
+  /* 常驻 RGB 色差重影（动画未处于故障帧时也有赛博感；动画运行时由关键帧接管） */
+  text-shadow:
+    1px 0 0 rgb(255 46 136 / 0.75),
+    -1px 0 0 rgb(0 240 255 / 0.75),
+    0 0 6px rgb(0 240 255 / 0.9),
+    0 0 20px rgb(0 240 255 / 0.45);
+  animation: cyber-glitch 3.4s steps(1) infinite;
+}
+
+/* ---------- 站头星空：星星与流星改青/品红两色 ---------- */
+
+[data-theme='cyber'] .pirate-twinkle {
+  background-color: #00f0ff;
+  box-shadow: 0 0 4px rgb(0 240 255 / 0.9);
+}
+
+[data-theme='cyber'] .pirate-twinkle:nth-child(even) {
+  background-color: #ff2e88;
+  box-shadow: 0 0 4px rgb(255 46 136 / 0.9);
+}
+
+[data-theme='cyber'] .pirate-shooting {
+  background-image: linear-gradient(to right, transparent, #00f0ff, transparent);
+}
+
+[data-theme='cyber'] .pirate-shooting:last-child {
+  background-image: linear-gradient(to right, transparent, #ff2e88, transparent);
+}
+
+/* ---------- 猫片广告/对联广告的文字辉光：红→品红、黑→青 ---------- */
+
+[data-theme='cyber'] .\[text-shadow\:0_0_6px_\#f00\,0_0_14px_\#f00\] {
+  text-shadow:
+    0 0 6px #ff2e88,
+    0 0 14px #ff2e88;
+}
+
+[data-theme='cyber'] .\[text-shadow\:0_0_3px_\#000\,0_0_6px_\#000\] {
+  text-shadow:
+    0 0 3px rgb(0 240 255 / 0.8),
+    0 0 6px rgb(0 240 255 / 0.6);
+}
+
+/* ---------- 闪烁广告：赛博主题暗帧提亮（近黑底上 opacity 0.25 几乎隐形） ---------- */
+
+@keyframes cyber-blink {
+  0%,
+  55% {
+    opacity: 1;
+  }
+  56%,
+  100% {
+    opacity: 0.6;
+  }
+}
+
+[data-theme='cyber'] .pirate-blink {
+  animation-name: cyber-blink;
+}
+
+/* ---------- 换装按钮：赛博主题下的霓虹样式 ---------- */
+
+[data-theme='cyber'] .theme-toggle {
+  background-color: #0a0a14;
+  border-color: #00f0ff;
+  color: #00f0ff;
+  text-shadow: 0 0 6px rgb(0 240 255 / 0.8);
+  box-shadow:
+    0 0 10px rgb(0 240 255 / 0.4),
+    inset 0 0 8px rgb(0 240 255 / 0.12);
+}
+
+[data-theme='cyber'] .theme-toggle:hover {
+  color: #fcee0a;
+  border-color: #fcee0a;
+  text-shadow: 0 0 8px rgb(252 238 10 / 0.8);
+  box-shadow:
+    0 0 14px rgb(252 238 10 / 0.45),
+    inset 0 0 8px rgb(252 238 10 / 0.12);
+}

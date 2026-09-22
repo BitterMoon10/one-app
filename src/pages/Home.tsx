@@ -217,7 +217,7 @@ const Home = () => {
                 </div>
 
                 <footer className="py-12 text-center text-white/30 text-sm border-t border-white/10">
-                  <p>© 2024 山岚 · 用镜头记录世界</p>
+                  <p>© 2024 白开水 · 用镜头记录世界</p>
                 </footer>
               </div>
             </div>

@@ -1,65 +1,26 @@
-import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Navigation from './components/Navigation';
-import About from './pages/About';
-import { Firework } from './components/effects/Firework';
+import Section from './pages/Section';
+import AboutMe from './pages/AboutMe';
+import Works from './pages/Works';
+import FireworksCanvas from './components/pirate/FireworksCanvas';
 import './App.css';
 
-interface ClickEffect {
-  id: number;
-  x: number;
-  y: number;
-}
-
 function App() {
-  const [fireworks, setFireworks] = useState<ClickEffect[]>([]);
-  const [nextId, setNextId] = useState(0);
-
-  useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      // 在点击位置创建烟花
-      const newFirework: ClickEffect = {
-        id: nextId,
-        x: e.clientX,
-        y: e.clientY,
-      };
-      
-      setFireworks(prev => [...prev, newFirework]);
-      setNextId(prev => prev + 1);
-    };
-
-    // 添加全局点击事件监听
-    document.addEventListener('click', handleClick);
-
-    return () => {
-      document.removeEventListener('click', handleClick);
-    };
-  }, [nextId]);
-
-  const removeFirework = (id: number) => {
-    setFireworks(prev => prev.filter(f => f.id !== id));
-  };
-
   return (
     <Router>
-      <div className="min-h-screen relative">
-        <Navigation />
-        <Routes>
-          <Route path="/me" element={<About />} />
-          {/* 其他页面已禁用，全部重定向到关于我 */}
-          <Route path="*" element={<Navigate to="/me" replace />} />
-        </Routes>
-        
-        {/* 渲染所有烟花效果 */}
-        {fireworks.map(firework => (
-          <Firework
-            key={firework.id}
-            x={firework.x}
-            y={firework.y}
-            onComplete={() => removeFirework(firework.id)}
-          />
-        ))}
-      </div>
+      <Routes>
+        <Route path="/" element={<Section section="home" />} />
+        <Route path="/movies" element={<Section section="movies" />} />
+        <Route path="/tv" element={<Section section="tv" />} />
+        <Route path="/variety" element={<Section section="variety" />} />
+        <Route path="/anime" element={<Section section="anime" />} />
+        <Route path="/works" element={<Works />} />
+        <Route path="/me" element={<AboutMe />} />
+        {/* 未知路径重定向到首页 */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+      {/* 全屏烟花画布：任何组件调用 fireworks.burst(x, y) 即可炸开 */}
+      <FireworksCanvas />
     </Router>
   );
 }

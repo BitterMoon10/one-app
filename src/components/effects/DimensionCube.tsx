@@ -21,6 +21,8 @@ interface Dimension {
   meteors: string[];
   /** 有图片时，爆炸改为展示该图片（如微信二维码），替代星系陨石 */
   image?: string;
+  /** 有三联漫画长图时，爆炸居中展示该长图（如呼叫地球的日常） */
+  strip?: string;
   glow: string;
   shadowColor: string;
   /** 维度主题色（HUD 文字标签的括号框与辉光） */
@@ -88,6 +90,7 @@ const DIMENSIONS: Dimension[] = [
     subtitle: 'Calling Earth',
     meteors: [],
     image: '/wechat-qr.jpg',
+    strip: '/scenes/daily.svg',
     glow: 'from-green-400/25',
     shadowColor: 'rgba(74, 222, 128, 0.28)',
     accent: '#4ade80',
@@ -269,6 +272,8 @@ const DimensionCube = () => {
     title: string;
     accent: string;
   } | null>(null);
+  /** 微信二维码点击放大 */
+  const [qrZoom, setQrZoom] = useState(false);
   const [spriteMap, setSpriteMap] = useState<Record<number, string>>({});
 
   // 预生成全部星系贴图（真实照片 + 抠图，异步），避免点击时等待
@@ -409,7 +414,11 @@ const DimensionCube = () => {
     const origin = rect
       ? { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 }
       : { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-    const count = dimension.image ? 1 : dimension.meteors.length;
+    const count = dimension.strip
+      ? 1
+      : dimension.image
+        ? 1
+        : dimension.meteors.length;
     setExplosion({
       dimension,
       origin,
@@ -682,8 +691,8 @@ const DimensionCube = () => {
             );
           })}
 
-          {/* 图片陨石（联系我面：微信二维码，替代星系陨石，固定屏幕中央） */}
-          {explosion.dimension.image &&
+          {/* 三联漫画长图（呼叫地球面：纯线条日常三连格，居中展开） */}
+          {explosion.dimension.strip &&
             explosion.targets[0] &&
             (() => {
               const target = explosion.targets[0];
@@ -694,7 +703,7 @@ const DimensionCube = () => {
                     left: explosion.origin.x,
                     top: explosion.origin.y,
                     transform: isScattered
-                      ? `translate(-50%, -50%) rotate(${target.rot}deg) scale(${target.depth})`
+                      ? `translate(-50%, -50%) scale(${target.depth})`
                       : 'translate(-50%, -50%) scale(0.1)',
                     opacity: isScattered ? 1 : 0,
                     transition: isScattered
@@ -704,35 +713,90 @@ const DimensionCube = () => {
                 >
                   <div
                     className={floating ? 'meteor-float' : ''}
-                    style={{ animationDuration: '3.8s' }}
+                    style={{ animationDuration: '4.2s' }}
                   >
-                    <div className="relative">
-                      {/* 星空光环：与背景协调的柔和辉光 */}
-                      <div
-                        className="absolute -inset-10 animate-pulse rounded-full"
-                        style={{
-                          background: `radial-gradient(circle, ${explosion.dimension.shadowColor}, rgba(99, 102, 241, 0.10) 55%, transparent 75%)`,
-                          filter: 'blur(14px)',
-                        }}
-                      />
-                      <img
-                        src={explosion.dimension.image}
-                        alt="微信好友二维码"
-                        className="relative h-auto w-44 object-contain sm:w-56"
-                        style={{
-                          boxShadow: `0 0 50px ${explosion.dimension.shadowColor}`,
-                          // 边缘径向羽化：白卡边缘融入星空
-                          maskImage:
-                            'radial-gradient(ellipse at center, black 60%, transparent 95%)',
-                          WebkitMaskImage:
-                            'radial-gradient(ellipse at center, black 60%, transparent 95%)',
-                        }}
-                      />
-                    </div>
+                    <img
+                      src={explosion.dimension.strip}
+                      alt="日常四联漫画"
+                      draggable={false}
+                      className="pointer-events-auto w-[76vw] max-w-3xl select-none sm:w-[62vw]"
+                      style={{
+                        filter: `drop-shadow(0 0 10px rgba(232, 236, 255, 0.35)) drop-shadow(0 0 30px ${explosion.dimension.shadowColor})`,
+                      }}
+                    />
+                    {/* 山顶格中高举的微信二维码热区（按长图比例定位）：点击弹出大图 */}
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setQrZoom(true);
+                      }}
+                      className="pointer-events-auto absolute cursor-pointer"
+                      style={{
+                        left: `${(1336 / 1600) * 100}%`,
+                        top: `${(86 / 300) * 100}%`,
+                        width: `${(68 / 1600) * 100}%`,
+                        height: `${(68 / 300) * 100}%`,
+                      }}
+                      aria-label="放大微信二维码"
+                      title="点击放大"
+                    />
                   </div>
                 </div>
               );
             })()}
+
+          {/* 微信二维码（无长图时居中展示；有长图时嵌在山顶格内，点击区域见上） */}
+          {explosion.dimension.image &&
+            !explosion.dimension.strip &&
+            explosion.targets[0] &&
+              (() => {
+                const target = explosion.targets[0];
+                return (
+                  <div
+                    className="pointer-events-none fixed"
+                    style={{
+                      left: explosion.origin.x,
+                      top: explosion.origin.y,
+                      transform: isScattered
+                        ? `translate(-50%, -50%) rotate(${target.rot}deg) scale(${target.depth})`
+                        : 'translate(-50%, -50%) scale(0.1)',
+                      opacity: isScattered ? 1 : 0,
+                      transition: isScattered
+                        ? 'transform 950ms cubic-bezier(0.16, 1.2, 0.3, 1), opacity 450ms ease'
+                        : 'transform 620ms cubic-bezier(0.5, 0, 0.75, 0), opacity 500ms ease',
+                    }}
+                  >
+                    <div
+                      className={floating ? 'meteor-float' : ''}
+                      style={{ animationDuration: '3.8s' }}
+                    >
+                      <div className="relative">
+                        {/* 星空光环：与背景协调的柔和辉光 */}
+                        <div
+                          className="absolute -inset-10 animate-pulse rounded-full"
+                          style={{
+                            background: `radial-gradient(circle, ${explosion.dimension.shadowColor}, rgba(99, 102, 241, 0.10) 55%, transparent 75%)`,
+                            filter: 'blur(14px)',
+                          }}
+                        />
+                        <img
+                          src={explosion.dimension.image}
+                          alt="微信好友二维码"
+                          className="relative h-auto w-44 object-contain sm:w-56"
+                          style={{
+                            boxShadow: `0 0 50px ${explosion.dimension.shadowColor}`,
+                            // 边缘径向羽化：白卡边缘融入星空
+                            maskImage:
+                              'radial-gradient(ellipse at center, black 60%, transparent 95%)',
+                            WebkitMaskImage:
+                              'radial-gradient(ellipse at center, black 60%, transparent 95%)',
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
           </div>,
           document.body,
         )}
@@ -746,6 +810,24 @@ const DimensionCube = () => {
           onClose={() => setBlackHole(null)}
         />
       )}
+
+      {/* 微信二维码放大（Lightbox） */}
+      {qrZoom &&
+        createPortal(
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
+            onClick={() => setQrZoom(false)}
+            role="button"
+            aria-label="关闭二维码大图"
+          >
+            <img
+              src="/wechat-qr.jpg"
+              alt="微信好友二维码（大图）"
+              className="max-h-[82vh] max-w-[86vw] rounded-2xl border border-white/25 bg-white/95 p-3 shadow-2xl"
+            />
+          </div>,
+          document.body,
+        )}
     </>
   );
 };

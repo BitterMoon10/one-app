@@ -147,3 +147,189 @@ button:active {
     background: white !important;
   }
 }
+
+/* ================= 盗版视频站戏仿页（/me）专用样式，统一 .pirate- 前缀 ================= */
+
+/* 经典蓝链接：必须带下划线，hover 变红 */
+.pirate-link {
+  color: #00e;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.pirate-link:hover {
+  color: #f00;
+}
+
+/* 黄底红字高亮 */
+.pirate-highlight {
+  background: #ffff00;
+  color: #f00;
+  /* 高亮 chip 折行时每行都带完整 padding，避免断出难看的小碎块 */
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* 站名土味渐变字（黄→橙） */
+.pirate-logo-text {
+  background: linear-gradient(180deg, #ffd75e 20%, #ff9a3c 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
+}
+
+/* 信息面板：白底细灰边、直角（老站没有圆角） */
+.pirate-panel {
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 0;
+}
+
+/* 公告滚动条：横向循环 */
+@keyframes pirate-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-33.333%);
+  }
+}
+
+.pirate-marquee {
+  display: inline-block;
+  animation: pirate-marquee 16s linear infinite;
+}
+
+/* 闪烁广告 */
+@keyframes pirate-blink {
+  0%,
+  55% {
+    opacity: 1;
+  }
+  56%,
+  100% {
+    opacity: 0.25;
+  }
+}
+
+.pirate-blink {
+  animation: pirate-blink 0.8s step-end infinite;
+}
+
+/* 弹幕：从右往左飘过 */
+@keyframes pirate-danmaku-move {
+  from {
+    left: 100%;
+  }
+  to {
+    left: -60%;
+  }
+}
+
+.pirate-danmaku {
+  animation-name: pirate-danmaku-move;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  will-change: left;
+}
+
+/* 播放器右上角滚动水印：缓慢横移 */
+@keyframes pirate-watermark-move {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.pirate-watermark {
+  display: inline-block;
+  animation: pirate-watermark-move 12s linear infinite;
+}
+
+/* 隐藏横向滚动条（导航用） */
+.pirate-scrollbar-hide {
+  scrollbar-width: none;
+}
+
+.pirate-scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Keep the frame controls above the home indicator on notched phones. */
+.anime-controls {
+  bottom: calc(1rem + env(safe-area-inset-bottom));
+}
+
+@media (max-width: 639px) {
+  .anime-caption {
+    bottom: calc(9rem + env(safe-area-inset-bottom));
+    left: 1rem;
+    max-width: 42vw;
+    line-height: 1.35;
+  }
+}
+
+@media (min-width: 640px) {
+  .anime-controls {
+    bottom: 1.5rem;
+  }
+}
+
+/* 站头星空：星星闪烁 */
+@keyframes pirate-twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.pirate-twinkle {
+  animation: pirate-twinkle 3s ease-in-out infinite;
+}
+
+/* 站头星空：流星划过（带 24° 倾角和拖尾） */
+@keyframes pirate-shooting {
+  0% {
+    transform: translate(0, 0) rotate(24deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  55% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(220px, 100px) rotate(24deg);
+    opacity: 0;
+  }
+}
+.pirate-shooting {
+  animation: pirate-shooting 5s linear infinite;
+}
+
+/* BGM 音符：播放时左右抖动 + 轻微上下弹跳 */
+@keyframes pirate-note-shake {
+  0%,
+  100% {
+    transform: rotate(-14deg) translateY(0);
+  }
+  25% {
+    transform: rotate(0deg) translateY(-2px);
+  }
+  50% {
+    transform: rotate(14deg) translateY(0);
+  }
+  75% {
+    transform: rotate(0deg) translateY(-2px);
+  }
+}
+.pirate-note-shake {
+  transform-origin: 50% 20%;
+  animation: pirate-note-shake 0.6s ease-in-out infinite;
+}
