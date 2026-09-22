@@ -14,7 +14,10 @@ function App() {
     <Router>
       <Routes>
         {redirect && <Route path="*" element={<Navigate to={redirect} replace />} />}
-        <Route path="/" element={<Section section="home" />} />
+        {/* 根路径直接进「关于我」 */}
+        <Route path="/" element={<Navigate to="/me" replace />} />
+        {/* 影视站门户首页保留在 /home */}
+        <Route path="/home" element={<Section section="home" />} />
         <Route path="/movies" element={<Section section="movies" />} />
         <Route path="/tv" element={<Section section="tv" />} />
         <Route path="/variety" element={<Section section="variety" />} />

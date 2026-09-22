@@ -47,7 +47,7 @@ const SiteHeader = ({ active = ACTIVE_NAV }: { active?: string }) => {
 
       {/* 第一行：logo / 搜索 / 登录注册 */}
       <div className="relative mx-auto flex w-full max-w-6xl flex-wrap items-center gap-x-4 gap-y-2 px-3 py-3 sm:px-4">
-        <Link to="/" className="flex shrink-0 items-baseline gap-2 no-underline">
+        <Link to="/home" className="flex shrink-0 items-baseline gap-2 no-underline">
           <span className="pirate-logo-text text-2xl font-black tracking-wide sm:text-3xl">
             {SITE.name}
           </span>

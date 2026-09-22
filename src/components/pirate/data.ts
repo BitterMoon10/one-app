@@ -15,7 +15,7 @@ export const SITE = {
 
 /** 顶部导航：label 用于标记当前高亮项，to 为真实路径（全部是真链接，不再有死链） */
 export const NAV_ITEMS = [
-  { label: '首页', to: '/' },
+  { label: '首页', to: '/home' },
   { label: '电影', to: '/movies' },
   { label: '电视剧', to: '/tv' },
   { label: '综艺', to: '/variety' },

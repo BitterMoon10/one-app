@@ -22,7 +22,7 @@ const Breadcrumb = ({ items }: { items: string[] }) => (
       <span key={crumb}>
         {i > 0 && <span className="mx-1 text-[#bbb]">&gt;</span>}
         {i < items.length - 1 ? (
-          <Link to="/" className="pirate-link">
+          <Link to="/home" className="pirate-link">
             {crumb}
           </Link>
         ) : (
