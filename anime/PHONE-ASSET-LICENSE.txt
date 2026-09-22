@@ -1,0 +1,15 @@
+Galaxy S25 Black (front)
+Author: Mandy Harper
+Source: https://commons.wikimedia.org/wiki/File:Galaxy_S25_Black_(front).png
+License: Creative Commons Attribution-ShareAlike 4.0 International
+https://creativecommons.org/licenses/by-sa/4.0/
+
+Modifications: cropped transparent padding, replaced the screen content with a custom alarm-clock interface, resized, rotated, color-adjusted, and composited into an earlier real-01.jpg iteration.
+
+Google Pixel 9a (Obsidian) rear
+Author: DM115Wiki
+Source: https://commons.wikimedia.org/wiki/File:Google_Pixel_9a_(Obsidian)_rear.svg
+License: Creative Commons Attribution-ShareAlike 4.0 International
+https://creativecommons.org/licenses/by-sa/4.0/
+
+Modifications: rendered to transparent PNG, resized, rotated, color-adjusted, and composited into the final real-01.jpg with the rear cameras facing the viewer.
