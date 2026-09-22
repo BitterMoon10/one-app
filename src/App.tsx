@@ -6,9 +6,14 @@ import FireworksCanvas from './components/pirate/FireworksCanvas';
 import './App.css';
 
 function App() {
+  // GitHub Pages 的 SPA 回退：直接访问 /me 等子路径会命中 404.html，
+  // 它把路径重定向到 /?redirect=/me，这里接住并转回真实路由
+  const redirect = new URLSearchParams(window.location.search).get('redirect');
+
   return (
     <Router>
       <Routes>
+        {redirect && <Route path="*" element={<Navigate to={redirect} replace />} />}
         <Route path="/" element={<Section section="home" />} />
         <Route path="/movies" element={<Section section="movies" />} />
         <Route path="/tv" element={<Section section="tv" />} />
