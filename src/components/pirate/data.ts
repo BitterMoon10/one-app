@@ -252,7 +252,7 @@ export const ABOUT_ME = {
     { label: '网名', value: '白开水' },
     { label: '职业', value: '大模型公司里把工作外包给AI的Infra工程师' },
     { label: '家庭', value: '村里长大，有一妹妹，投行工作' },
-    { label: '收入', value: '大概100w' },
+    { label: '收入', value: '85+w（税前）' },
     { label: '性格', value: 'INFP+天秤，如果你觉得我E，那就对了' },
     { label: '宠物', value: '一只美短起司猫' },
     {
