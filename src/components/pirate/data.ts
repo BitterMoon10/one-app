@@ -262,7 +262,11 @@ export const ABOUT_ME = {
         { text: '阅读', del: true },
       ],
     },
-    { label: '期望你', value: '爱笑' },
+    { label: '恋爱经历', value: '一段，3年多' },
+    {
+      label: '期望你',
+      value: '爱笑且笑起来好看，心态积极，活泼开朗。如果你能感受到我在向你走近，也希望你往前迈一步。',
+    },
   ] as ProfileRow[],
   /** ② 关于我（站长自白；与作品页剧情简介不共用） */
   introTitle: '关于我',

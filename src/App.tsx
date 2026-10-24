@@ -3,6 +3,7 @@ import Section from './pages/Section';
 import AboutMe from './pages/AboutMe';
 import Works from './pages/Works';
 import FireworksCanvas from './components/pirate/FireworksCanvas';
+import CyberScene from './components/pirate/CyberScene';
 import './App.css';
 
 function App() {
@@ -12,21 +13,24 @@ function App() {
 
   return (
     <Router>
-      <Routes>
-        {redirect && <Route path="*" element={<Navigate to={redirect} replace />} />}
-        {/* 根路径直接进「关于我」 */}
-        <Route path="/" element={<Navigate to="/me" replace />} />
-        {/* 影视站门户首页保留在 /home */}
-        <Route path="/home" element={<Section section="home" />} />
-        <Route path="/movies" element={<Section section="movies" />} />
-        <Route path="/tv" element={<Section section="tv" />} />
-        <Route path="/variety" element={<Section section="variety" />} />
-        <Route path="/anime" element={<Section section="anime" />} />
-        <Route path="/works" element={<Works />} />
-        <Route path="/me" element={<AboutMe />} />
-        {/* 未知路径重定向到首页 */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      <div className="relative z-[1]">
+        <Routes>
+          {redirect && <Route path="*" element={<Navigate to={redirect} replace />} />}
+          {/* 根路径直接进「关于我」 */}
+          <Route path="/" element={<Navigate to="/me" replace />} />
+          {/* 影视站门户首页保留在 /home */}
+          <Route path="/home" element={<Section section="home" />} />
+          <Route path="/movies" element={<Section section="movies" />} />
+          <Route path="/tv" element={<Section section="tv" />} />
+          <Route path="/variety" element={<Section section="variety" />} />
+          <Route path="/anime" element={<Section section="anime" />} />
+          <Route path="/works" element={<Works />} />
+          <Route path="/me" element={<AboutMe />} />
+          {/* 未知路径重定向到首页 */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </div>
+      <CyberScene />
       {/* 全屏烟花画布：任何组件调用 fireworks.burst(x, y) 即可炸开 */}
       <FireworksCanvas />
     </Router>
